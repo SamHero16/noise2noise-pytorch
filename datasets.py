@@ -129,8 +129,9 @@ class NoisyDataset(AbstractDataset):
             #noise_img = img + noise
            # noise_img = 255 * (noise_img / np.amax(noise_img))
 
-             chi = 30.0
+             chi = random.uniform(0.001, 50)
              noise_img =  np.random.poisson(chi*(np.array(img)+0.5))/chi - 0.5
+             noise_img = noise_img.astype(np.uint8)
 
         # Normal distribution (default)
         else:
@@ -143,7 +144,7 @@ class NoisyDataset(AbstractDataset):
             # Add noise and clip
             noise_img = np.array(img) + noise
 
-        noise_img = np.clip(noise_img, 0, 255).astype(np.uint8)
+            noise_img = np.clip(noise_img, 0, 255).astype(np.uint8)
         return Image.fromarray(noise_img)
 
 
